@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +17,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #050508;
+            background-color: #0d0a14;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #ffffff;
         }
@@ -37,15 +39,15 @@
             padding: 20px;
         }
         .stats-panel {
-            background: rgba(10, 10, 15, 0.75);
-            border: 1px solid rgba(255, 215, 0, 0.2);
+            background: rgba(20, 15, 30, 0.85);
+            border: 1px solid rgba(255, 215, 0, 0.4);
             border-radius: 8px;
             padding: 12px 18px;
             font-family: monospace;
             font-size: 14px;
             color: #00ffcc;
             width: fit-content;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
             backdrop-filter: blur(4px);
         }
         .stats-line {
@@ -63,62 +65,62 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             pointer-events: none;
         }
         #crosshair::before, #crosshair::after {
             content: '';
             position: absolute;
-            background: rgba(255, 215, 0, 0.9);
-            box-shadow: 0 0 6px #ffd700;
+            background: #ffd700;
+            box-shadow: 0 0 8px #ffd700;
         }
         #crosshair::before {
-            top: 5px;
+            top: 6px;
             left: 0;
-            width: 12px;
+            width: 14px;
             height: 2px;
         }
         #crosshair::after {
             top: 0;
-            left: 5px;
+            left: 6px;
             width: 2px;
-            height: 12px;
+            height: 14px;
         }
         #reload-bar-container {
             position: absolute;
-            top: calc(50% + 20px);
+            top: calc(50% + 22px);
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 2px;
+            width: 70px;
+            height: 5px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            border-radius: 3px;
             overflow: hidden;
             opacity: 0;
-            transition: opacity 0.2s ease;
+            transition: opacity 0.15s ease;
         }
         #reload-bar-fill {
             width: 0%;
             height: 100%;
             background: #ffd700;
-            box-shadow: 0 0 8px #ffd700;
+            box-shadow: 0 0 10px #ffd700;
         }
         #health-bar-container {
-            width: 280px;
-            height: 22px;
-            background: rgba(20, 10, 15, 0.85);
+            width: 300px;
+            height: 24px;
+            background: rgba(30, 10, 20, 0.9);
             border: 1px solid #ff3366;
             border-radius: 4px;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 0 10px rgba(255, 51, 102, 0.3);
+            box-shadow: 0 0 12px rgba(255, 51, 102, 0.4);
         }
         #health-bar-fill {
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, #ff0055, #ff3300);
+            background: linear-gradient(90deg, #ff0055, #ff5500);
             transition: width 0.15s ease-out;
         }
         #health-text {
@@ -126,11 +128,11 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
             font-family: monospace;
             color: #ffffff;
-            text-shadow: 0 0 4px #000;
+            text-shadow: 0 0 5px #000;
         }
         #blocker {
             position: absolute;
@@ -138,7 +140,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(5, 5, 8, 0.85);
+            background: rgba(13, 10, 20, 0.85);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -151,31 +153,31 @@
             text-align: center;
         }
         #title {
-            font-size: 56px;
+            font-size: 64px;
             font-weight: 900;
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             color: #ffd700;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 100, 0, 0.4);
+            text-shadow: 0 0 25px rgba(255, 215, 0, 0.8), 0 0 50px rgba(255, 100, 0, 0.5);
             margin-bottom: 15px;
         }
         #click-prompt {
-            font-size: 18px;
+            font-size: 20px;
             color: #ffffff;
             margin-bottom: 25px;
-            animation: pulse 1.5s infinite alternate;
+            animation: pulse 1.2s infinite alternate;
         }
         .controls-info {
             font-size: 13px;
-            color: #aaaaaa;
+            color: #cccccc;
             line-height: 1.8;
             font-family: monospace;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 12px 24px;
             border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2);
         }
         @keyframes pulse {
-            from { opacity: 0.6; }
+            from { opacity: 0.5; }
             to { opacity: 1; }
         }
     </style>
@@ -207,7 +209,6 @@
         </div>
     </div>
 
-    <!-- External Libraries loaded via official CDNs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
     <script src="client.js"></script>
