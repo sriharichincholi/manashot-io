@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-const socket = io();
+const socket = io('https://manashot-backend.onrender.com');
 
 // Canvas & Renderer
 const canvas = document.getElementById('game-canvas');
