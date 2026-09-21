@@ -1,220 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ManaShot.io</title>
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background-color: #05040a;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      user-select: none;
-    }
-
-    #game-canvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    /* Top Left Performance & Stats Overlay */
-    #perf-overlay {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      font-family: monospace;
-      color: #00ffcc;
-      font-size: 13px;
-      font-weight: bold;
-      background: rgba(10, 8, 20, 0.85);
-      padding: 8px 14px;
-      border-radius: 6px;
-      border: 1px solid rgba(0, 255, 204, 0.4);
-      pointer-events: none;
-      text-shadow: 0 0 5px rgba(0, 255, 204, 0.5);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    /* Player Health Bar Container */
-    #hp-container {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      width: 240px;
-      background: rgba(10, 8, 20, 0.85);
-      border: 1px solid rgba(255, 0, 85, 0.5);
-      padding: 6px;
-      border-radius: 6px;
-      pointer-events: none;
-    }
-
-    #hp-bar {
-      height: 16px;
-      width: 100%;
-      background: #ff0055;
-      border-radius: 3px;
-      transition: width 0.1s linear;
-      box-shadow: 0 0 10px #ff0055;
-    }
-
-    #hp-text {
-      color: #fff;
-      font-family: monospace;
-      font-size: 12px;
-      font-weight: bold;
-      text-align: center;
-      margin-top: 4px;
-    }
-
-    /* Crosshair & Reload UI */
-    #crosshair-container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    #crosshair {
-      width: 6px;
-      height: 6px;
-      background: #ffea00;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #ffea00;
-    }
-
-    #reload-bar-container {
-      width: 40px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 2px;
-      margin-top: 10px;
-      overflow: hidden;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    #reload-bar-fill {
-      height: 100%;
-      width: 0%;
-      background: #ffea00;
-      box-shadow: 0 0 6px #ffea00;
-    }
-
-    /* Invincibility Shield Flash Overlay */
-    #shield-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 6px solid #ffea00;
-      box-sizing: border-box;
-      pointer-events: none;
-      opacity: 0;
-      box-shadow: inset 0 0 30px rgba(255, 234, 0, 0.4);
-      transition: opacity 0.2s;
-    }
-
-    /* Killstreak Banner Announcement */
-    #banner-announcement {
-      position: absolute;
-      top: 25%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: 'Impact', sans-serif;
-      font-size: 32px;
-      letter-spacing: 2px;
-      color: #ffea00;
-      text-shadow: 0 0 15px #ffea00, 0 0 30px #ff0055;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s, transform 0.3s;
-    }
-
-    /* Start Screen */
-    #blocker {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: rgba(5, 4, 10, 0.85);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      cursor: pointer;
-    }
-
-    #blocker h1 {
-      font-size: 54px;
-      margin: 0 0 10px 0;
-      letter-spacing: 6px;
-      color: #ffea00;
-      text-shadow: 0 0 20px rgba(255, 234, 0, 0.6);
-    }
-
-    #blocker p {
-      font-size: 16px;
-      color: #cccccc;
-      margin: 5px 0;
-    }
-
-    .controls-hint {
-      font-size: 13px;
-      color: #888;
-      margin-top: 15px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ManaShot.io - 3D Multiplayer Magic Arena</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #050508;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+        }
+        #game-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        #hud-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .stats-panel {
+            background: rgba(10, 10, 15, 0.75);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 8px;
+            padding: 12px 18px;
+            font-family: monospace;
+            font-size: 14px;
+            color: #00ffcc;
+            width: fit-content;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+        .stats-line {
+            margin-bottom: 4px;
+        }
+        .stats-line:last-child {
+            margin-bottom: 0;
+        }
+        .val-highlight {
+            color: #ffd700;
+            font-weight: bold;
+        }
+        #crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            pointer-events: none;
+        }
+        #crosshair::before, #crosshair::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 215, 0, 0.9);
+            box-shadow: 0 0 6px #ffd700;
+        }
+        #crosshair::before {
+            top: 5px;
+            left: 0;
+            width: 12px;
+            height: 2px;
+        }
+        #crosshair::after {
+            top: 0;
+            left: 5px;
+            width: 2px;
+            height: 12px;
+        }
+        #reload-bar-container {
+            position: absolute;
+            top: calc(50% + 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 2px;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        #reload-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: #ffd700;
+            box-shadow: 0 0 8px #ffd700;
+        }
+        #health-bar-container {
+            width: 280px;
+            height: 22px;
+            background: rgba(20, 10, 15, 0.85);
+            border: 1px solid #ff3366;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 10px rgba(255, 51, 102, 0.3);
+        }
+        #health-bar-fill {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff0055, #ff3300);
+            transition: width 0.15s ease-out;
+        }
+        #health-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 11px;
+            font-weight: bold;
+            font-family: monospace;
+            color: #ffffff;
+            text-shadow: 0 0 4px #000;
+        }
+        #blocker {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 5, 8, 0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+        #instructions {
+            text-align: center;
+        }
+        #title {
+            font-size: 56px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 100, 0, 0.4);
+            margin-bottom: 15px;
+        }
+        #click-prompt {
+            font-size: 18px;
+            color: #ffffff;
+            margin-bottom: 25px;
+            animation: pulse 1.5s infinite alternate;
+        }
+        .controls-info {
+            font-size: 13px;
+            color: #aaaaaa;
+            line-height: 1.8;
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        @keyframes pulse {
+            from { opacity: 0.6; }
+            to { opacity: 1; }
+        }
+    </style>
 </head>
 <body>
+    <div id="blocker">
+        <div id="instructions">
+            <div id="title">MANASHOT.IO</div>
+            <div id="click-prompt">Click anywhere to enter</div>
+            <div class="controls-info">
+                WASD = Move | SPACE = Jump / Bhop | L-SHIFT = Crouch Slide | LEFT CLICK = Fire Lightning Spear
+            </div>
+        </div>
+    </div>
 
-  <div id="perf-overlay">
-    <div>FPS: <span id="fps-val">60</span> | PING: <span id="ping-val">0</span> ms | SPEED: <span id="speed-val">0</span> m/s</div>
-    <div style="color: #ffea00;">SLAYS: <span id="kills-val">0</span> | RELOAD BUFF: <span id="reload-buff-val">0</span>% | SPEED BUFF: <span id="speed-buff-val">0</span>%</div>
-  </div>
-
-  <div id="hp-container">
-    <div id="hp-bar"></div>
-    <div id="hp-text">HP: 100 / 100</div>
-  </div>
-
-  <div id="crosshair-container">
     <div id="crosshair"></div>
     <div id="reload-bar-container">
-      <div id="reload-bar-fill"></div>
+        <div id="reload-bar-fill"></div>
     </div>
-  </div>
 
-  <div id="shield-overlay"></div>
-  <div id="banner-announcement">10 DEMONS SLAYED! +2.5% MOVEMENT SPEED</div>
+    <div id="hud-container">
+        <div class="stats-panel">
+            <div class="stats-line">FPS: <span id="fps-val" class="val-highlight">60</span> | PING: <span id="ping-val" class="val-highlight">0 ms</span> | SPEED: <span id="speed-val" class="val-highlight">0 m/s</span></div>
+            <div class="stats-line">SLAYS: <span id="slays-val" class="val-highlight">0</span> | RELOAD BUFF: <span id="reload-buff-val" class="val-highlight">0%</span> | SPEED BUFF: <span id="speed-buff-val" class="val-highlight">0%</span></div>
+        </div>
+        <div id="health-bar-container">
+            <div id="health-bar-fill"></div>
+            <div id="health-text">HP: 100 / 100</div>
+        </div>
+    </div>
 
-  <div id="blocker">
-    <h1>MANASHOT.IO</h1>
-    <p>Click anywhere to enter</p>
-    <div class="controls-hint">WASD = Move | SPACE = Jump / Bhop | L-SHIFT = Crouch Slide | LEFT CLICK = Fire Lightning Spear</div>
-  </div>
-
-  <canvas id="game-canvas"></canvas>
-
-  <script src="/socket.io/socket.io.js"></script>
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
-      }
-    }
-  </script>
-  <script type="module" src="client.js"></script>
+    <!-- External Libraries loaded via official CDNs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+    <script src="client.js"></script>
 </body>
 </html>
