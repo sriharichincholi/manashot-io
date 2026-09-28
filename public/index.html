@@ -4,232 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ManaShot.io - 3D Multiplayer Magic Arena</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-        }
-        body, html {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: #0d0a14;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #ffffff;
-        }
-        #hud-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 20px;
-        }
-        .stats-panel {
-            background: rgba(20, 15, 30, 0.85);
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            border-radius: 8px;
-            padding: 12px 18px;
-            font-family: monospace;
-            font-size: 14px;
-            color: #00ffcc;
-            width: fit-content;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-            backdrop-filter: blur(4px);
-        }
-        .stats-line {
-            margin-bottom: 4px;
-        }
-        .stats-line:last-child {
-            margin-bottom: 0;
-        }
-        .val-highlight {
-            color: #ffd700;
-            font-weight: bold;
-        }
-        #crosshair {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 14px;
-            height: 14px;
-            pointer-events: none;
-        }
-        #crosshair::before, #crosshair::after {
-            content: '';
-            position: absolute;
-            background: #ffd700;
-            box-shadow: 0 0 8px #ffd700;
-        }
-        #crosshair::before {
-            top: 6px;
-            left: 0;
-            width: 14px;
-            height: 2px;
-        }
-        #crosshair::after {
-            top: 0;
-            left: 6px;
-            width: 2px;
-            height: 14px;
-        }
-        #reload-bar-container {
-            position: absolute;
-            top: calc(50% + 22px);
-            left: 50%;
-            transform: translateX(-50%);
-            width: 70px;
-            height: 5px;
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid rgba(255, 215, 0, 0.5);
-            border-radius: 3px;
-            overflow: hidden;
-            opacity: 0;
-            transition: opacity 0.15s ease;
-        }
-        #reload-bar-fill {
-            width: 0%;
-            height: 100%;
-            background: #ffd700;
-            box-shadow: 0 0 10px #ffd700;
-        }
-        #kill-feed {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 6px;
-            pointer-events: none;
-        }
-        .kill-msg {
-            background: rgba(20, 10, 30, 0.9);
-            border: 1px solid #ffd700;
-            color: #ffffff;
-            font-family: monospace;
-            font-size: 13px;
-            padding: 6px 12px;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-            animation: fadeIn 0.2s ease-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        #health-bar-container {
-            width: 300px;
-            height: 24px;
-            background: rgba(30, 10, 20, 0.9);
-            border: 1px solid #ff3366;
-            border-radius: 4px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 0 12px rgba(255, 51, 102, 0.4);
-        }
-        #health-bar-fill {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, #ff0055, #ff5500);
-            transition: width 0.15s ease-out;
-        }
-        #health-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 12px;
-            font-weight: bold;
-            font-family: monospace;
-            color: #ffffff;
-            text-shadow: 0 0 5px #000;
-        }
-        #blocker {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(13, 10, 20, 0.85);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 100;
-            backdrop-filter: blur(8px);
-        }
-        #instructions {
-            text-align: center;
-        }
-        #title {
-            font-size: 64px;
-            font-weight: 900;
-            letter-spacing: 5px;
-            color: #ffd700;
-            text-shadow: 0 0 25px rgba(255, 215, 0, 0.8), 0 0 50px rgba(255, 100, 0, 0.5);
-            margin-bottom: 15px;
-        }
-        #click-prompt {
-            font-size: 20px;
-            color: #ffffff;
-            margin-bottom: 25px;
-            animation: pulse 1.2s infinite alternate;
-        }
-        .controls-info {
-            font-size: 13px;
-            color: #cccccc;
-            line-height: 1.8;
-            font-family: monospace;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 12px 24px;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-        }
-        @keyframes pulse {
-            from { opacity: 0.5; }
-            to { opacity: 1; }
-        }
-    </style>
+    <!-- Modern Cyber-Gothic Font Options -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Screen Damage Vignette Overlay -->
+    <div id="damage-vignette"></div>
+
+    <!-- Start Launcher Screen Overlay -->
     <div id="blocker">
-        <div id="instructions">
-            <div id="title">MANASHOT.IO</div>
-            <div id="click-prompt">Click anywhere to enter</div>
-            <div class="controls-info">
-                WASD = Move | SPACE = Jump / High-Speed BHop | L-SHIFT = Slide | LEFT CLICK = Shoot Lightning Spear
+        <div id="launcher-card">
+            <div id="launcher-header">
+                <div id="launcher-title">MANASHOT.IO</div>
+                <div id="launcher-subtitle">EXTREME MULTIPLAYER MAGIC ARENA</div>
+            </div>
+
+            <button id="play-btn">ENTER ARENA</button>
+
+            <div class="controls-grid">
+                <div class="control-item"><span>WASD</span><span class="key-badge">Movement</span></div>
+                <div class="control-item"><span>SPACE</span><span class="key-badge">BHop / Jump</span></div>
+                <div class="control-item"><span>L-SHIFT</span><span class="key-badge">Slide / Crouch</span></div>
+                <div class="control-item"><span>LEFT CLICK</span><span class="key-badge">Lightning Spear</span></div>
+            </div>
+
+            <div id="connection-status">
+                <span class="status-dot"></span>
+                <span id="status-text">CONNECTING TO NETWORK...</span>
             </div>
         </div>
     </div>
 
-    <div id="crosshair"></div>
+    <!-- Crosshair & Hitmarker -->
+    <div id="crosshair">
+        <div class="crosshair-center"></div>
+        <div class="crosshair-line top"></div>
+        <div class="crosshair-line bottom"></div>
+        <div class="crosshair-line left"></div>
+        <div class="crosshair-line right"></div>
+    </div>
+    <div id="hitmarker"></div>
+
+    <!-- Reload Meter -->
     <div id="reload-bar-container">
         <div id="reload-bar-fill"></div>
     </div>
+
+    <!-- Kill Feed -->
     <div id="kill-feed"></div>
 
+    <!-- Main HUD Overlay -->
     <div id="hud-container">
-        <div class="stats-panel">
-            <div class="stats-line">FPS: <span id="fps-val" class="val-highlight">60</span> | PING: <span id="ping-val" class="val-highlight">0 ms</span> | SPEED: <span id="speed-val" class="val-highlight">0 m/s</span></div>
-            <div class="stats-line">SLAYS: <span id="slays-val" class="val-highlight">0</span> | RELOAD BUFF: <span id="reload-buff-val" class="val-highlight">0%</span> | SPEED BUFF: <span id="speed-buff-val" class="val-highlight">0%</span></div>
+        <!-- Stats Panel Top-Left -->
+        <div class="stats-panel glass-panel">
+            <div class="stats-line">
+                FPS: <span id="fps-val" class="val-highlight">60</span> |
+                PING: <span id="ping-val" class="val-highlight">0 ms</span> |
+                SPEED: <span id="speed-val" class="val-highlight">0.0 m/s</span>
+            </div>
+            <div class="stats-line">
+                SLAYS: <span id="slays-val" class="val-gold">0</span> |
+                RELOAD BUFF: <span id="reload-buff-val" class="val-gold">0%</span> |
+                SPEED BUFF: <span id="speed-buff-val" class="val-gold">0%</span>
+            </div>
         </div>
-        <div id="health-bar-container">
-            <div id="health-bar-fill"></div>
-            <div id="health-text">HP: 100 / 100</div>
+
+        <!-- Bottom Health Section -->
+        <div id="health-section">
+            <div class="hud-label">VITALITY STATUS</div>
+            <div id="health-bar-container">
+                <div id="health-bar-fill"></div>
+                <div id="health-text">HP: 100 / 100</div>
+            </div>
         </div>
     </div>
 
+    <!-- Core Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+
+    <!-- Modular Game Architecture -->
+    <script src="js/audio.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/environment.js"></script>
+    <script src="js/weapon.js"></script>
+    <script src="js/demons.js"></script>
+    <script src="js/hud.js"></script>
+    <script src="js/network.js"></script>
     <script src="client.js"></script>
 </body>
 </html>
